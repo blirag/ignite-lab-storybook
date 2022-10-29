@@ -24,12 +24,12 @@ jobs:
       - name: Build Storybook
         run: npm run build-storybook
 
-      - name: Storybook Tests
-        run: npm run test-storybook
-        env:
-          TARGET_URL: '${{ github.event.deployment_status.target_url }}'
-
       - name: Deploy Storybook
         run: npm run deploy-storybook -- --ci --existing-output-dir=storybook-static
         env:
           GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
+
+      - name: Storybook Tests
+        run: npm run test-storybook
+        env:
+          TARGET_URL: '${{ github.event.deployment_status.target_url }}'
